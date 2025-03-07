@@ -29,9 +29,21 @@ class _HomeState extends State<Home> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(
-            Icons.menu,
-            color: tdBlack,
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => {},
+                icon: const Icon(Icons.menu),
+                color: tdBlack,
+              ),
+              SizedBox(
+                height: 60,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset('assets/imgs/app_icon.png'),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: 40,
@@ -39,9 +51,9 @@ class _HomeState extends State<Home> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                  'https://yt3.ggpht.com/yti/ANjgQV_XfsMZkWacvLbSm6US_LqqyU9BMEHNtzluuvEmqXYF_8s=s108-c-k-c0x00ffffff-no-rj'),
+                  'https://cdn-icons-png.flaticon.com/512/2202/2202112.png'),
             ),
-          )
+          ),
         ],
       ),
     );
