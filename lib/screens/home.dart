@@ -13,8 +13,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final todoList = ToDo.todoList();
-  List<ToDo> _foundToDo = [];
   final _todoController = TextEditingController();
+  List<ToDo> _foundToDo = [];
+  String tex = '';
 
   @override
   void initState() {
@@ -102,6 +103,20 @@ class _HomeState extends State<Home> {
     });
   }
 
+  String _handleAddTodo() {
+    if (todoList.isNotEmpty) {
+      setState(() {
+        tex = "All ToDos";
+      });
+      return tex;
+    } else {
+      setState(() {
+        tex = "Add a ToDo";
+      });
+      return tex;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,9 +137,9 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(top: 50, bottom: 20),
-                        child: const Text(
-                          "All ToDos",
-                          style: TextStyle(
+                        child: Text(
+                          _handleAddTodo(),
+                          style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
                           ),

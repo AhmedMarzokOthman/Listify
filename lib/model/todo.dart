@@ -10,13 +10,6 @@ class ToDo {
   });
 
   static List<ToDo> todoList() {
-    return [
-      ToDo(id: '03', todoText: "Check Emails"),
-      ToDo(id: '01', todoText: "Morning Excercise", isDone: true),
-      ToDo(id: '04', todoText: "Google Team Meeting"),
-      ToDo(id: '02', todoText: "Buy Groceries", isDone: true),
-      ToDo(id: '05', todoText: "Work on collage assignments for 2 hours"),
-      ToDo(id: '06', todoText: "Dinner with Jenny"),
-    ];
+    return [];
   }
 }
