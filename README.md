@@ -1,3 +1,3 @@
-# listify
+# Listify
 
 Todo Mobile App
