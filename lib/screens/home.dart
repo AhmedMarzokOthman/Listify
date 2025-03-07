@@ -29,21 +29,12 @@ class _HomeState extends State<Home> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () => {},
-                icon: const Icon(Icons.menu),
-                color: tdBlack,
-              ),
-              SizedBox(
-                height: 60,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset('assets/imgs/app_icon.png'),
-                ),
-              ),
-            ],
+          SizedBox(
+            height: 60,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset('assets/imgs/app_icon.png'),
+            ),
           ),
           SizedBox(
             height: 40,
