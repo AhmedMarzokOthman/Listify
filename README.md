@@ -20,7 +20,6 @@ Listify is a sleek, intuitive todo list application built with Flutter. It helps
 <p align="center">
   <img src="assets/screenshots/home_screen.png" alt="Home Screen" width="250"/>
   <img src="assets/screenshots/add_task.png" alt="Add Task" width="250"/>
-  <img src="assets/screenshots/home_screen_preview.png" alt="Search Tasks" width="250"/>
   <img src="assets/screenshots/search_tasks.png" alt="Search Tasks" width="250"/>
 </p>
 
