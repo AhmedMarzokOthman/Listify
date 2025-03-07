@@ -1,3 +1,3 @@
-# listaty
+# listify
 
-A new Flutter project.
+Todo Mobile App
