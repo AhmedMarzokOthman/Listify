@@ -103,7 +103,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-- **Your Name** - [GitHub Profile](https://github.com/yourusername)
+- **Ahmed Marzok** - [GitHub Profile](https://github.com/AhmedMarzokOthman)
 
 ## 🙏 Acknowledgements
 
