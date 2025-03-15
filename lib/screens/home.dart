@@ -27,26 +27,12 @@ class _HomeState extends State<Home> {
     return AppBar(
       elevation: 0,
       backgroundColor: tdBGColor,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            height: 60,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset('assets/imgs/app_icon.png'),
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            width: 40,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                  'https://cdn-icons-png.flaticon.com/512/2202/2202112.png'),
-            ),
-          ),
-        ],
+      title: SizedBox(
+        height: 60,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset('assets/imgs/app_icon.png'),
+        ),
       ),
     );
   }
@@ -60,6 +46,7 @@ class _HomeState extends State<Home> {
   void _handleOnDeleteItem(String id) {
     setState(() {
       todoList.removeWhere((item) => item.id == id);
+      _foundToDo.removeWhere((item) => item.id == id);
     });
   }
 
@@ -198,8 +185,8 @@ class _HomeState extends State<Home> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
+                    bottom: 15,
+                    right: 15,
                   ),
                   child: ElevatedButton(
                     onPressed: () => _addTodoItem(_todoController.text),
@@ -210,9 +197,7 @@ class _HomeState extends State<Home> {
                       shape: const CircleBorder(),
                       elevation: 10,
                     ),
-                    child: const Text("+",
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.w400)),
+                    child: const Icon(Icons.add),
                   ),
                 )
               ],
