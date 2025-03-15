@@ -24,7 +24,7 @@ class TodoController {
         height: 60,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.asset('assets/imgs/app_icon.png'),
+          child: Image.asset('assets/imgs/logo.png'),
         ),
       ),
     );
@@ -49,12 +49,19 @@ class TodoController {
 
   // Add a new todo
   Future<void> addTodo(String todoText) async {
-    if (todoText.isEmpty) return;
+    // Trim the text to remove leading and trailing whitespace
+    final trimmedText = todoText.trim();
+
+    // Check if the trimmed text is empty
+    if (trimmedText.isEmpty) {
+      // Don't add the todo if it's empty or just whitespace
+      return;
+    }
 
     final box = Hive.box<Todo>('todo_database');
     final newTodo = Todo(
       todoId: DateTime.now().microsecondsSinceEpoch.toString(),
-      todoText: todoText,
+      todoText: trimmedText, // Use the trimmed text
       createdAt: DateTime.now(),
     );
 
@@ -117,5 +124,37 @@ class TodoController {
   // Dispose resources
   void dispose() {
     todosNotifier.dispose();
+  }
+
+  // Update a todo
+  Future<void> updateTodo(String id, String newText) async {
+    // Trim the text to remove leading and trailing whitespace
+    final trimmedText = newText.trim();
+
+    // Check if the trimmed text is empty
+    if (trimmedText.isEmpty) {
+      return;
+    }
+
+    final box = Hive.box<Todo>('todo_database');
+    // Find the key for the todo with this id
+    final keyToUpdate = box.keys.firstWhere(
+      (key) => box.get(key)?.todoId == id,
+      orElse: () => null,
+    );
+
+    if (keyToUpdate != null) {
+      final todo = box.get(keyToUpdate);
+      if (todo != null) {
+        final updatedTodo = Todo(
+          todoId: todo.todoId,
+          todoText: trimmedText, // Use the trimmed text
+          isDone: todo.isDone,
+          createdAt: todo.createdAt,
+        );
+        await box.put(keyToUpdate, updatedTodo);
+        await loadTodos();
+      }
+    }
   }
 }

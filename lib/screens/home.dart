@@ -60,6 +60,9 @@ class _HomeState extends State<Home> {
                                 todo: todo,
                                 onToDoChange: _todoController.toggleTodoStatus,
                                 onDeleteItem: _todoController.deleteTodo,
+                                onUpdateItem: (String id, String text) {
+                                  _showUpdateDialog(id, text);
+                                },
                               ),
                             const SizedBox(
                               height: 50,
@@ -104,6 +107,7 @@ class _HomeState extends State<Home> {
                         hintText: 'Add new todo item',
                         border: InputBorder.none,
                       ),
+                      cursorColor: tdBlue,
                     ),
                   ),
                 ),
@@ -132,6 +136,55 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
+    );
+  }
+
+// Scale animation
+
+  void _showUpdateDialog(String id, String currentText) {
+    final TextEditingController _updateController =
+        TextEditingController(text: currentText);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: tdBGColor,
+          surfaceTintColor: tdBGColor,
+          title: const Text('Update Todo'),
+          content: TextField(
+            controller: _updateController,
+            cursorColor: tdBlue,
+            decoration: const InputDecoration(
+                hintText: 'Update todo item',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: tdBlue),
+                )),
+            autofocus: true,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: tdBlue),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                _todoController.updateTodo(id, _updateController.text);
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Update',
+                style: TextStyle(color: tdBlue),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

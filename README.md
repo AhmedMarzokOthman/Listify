@@ -21,6 +21,7 @@ Listify is a sleek, intuitive todo list application built with Flutter. It helps
   <img src="assets/screenshots/home_screen.png" alt="Home Screen" width="250"/>
   <img src="assets/screenshots/add_task.png" alt="Add Task" width="250"/>
   <img src="assets/screenshots/search_tasks.png" alt="Search Tasks" width="250"/>
+  <img src="assets/screenshots/update_todo.png" alt="Search Tasks" width="250"/>
 </p>
 
 ## 🛠️ Tech Stack
@@ -80,7 +81,6 @@ lib/
 
 ## 🔮 Future Enhancements
 
-- **Local Storage**: Persist todos using shared preferences or SQLite
 - **Cloud Sync**: Sync todos across multiple devices
 - **Categories**: Organize todos into different categories
 - **Due Dates**: Add due dates and reminders for tasks
