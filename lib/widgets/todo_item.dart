@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:listify/constants/colors.dart';
 import 'package:listify/model/todo.dart';
+import 'package:intl/intl.dart';
 
 class TodoItem extends StatelessWidget {
-  final ToDo todo;
+  final Todo todo;
   final onToDoChange;
   final onDeleteItem;
   const TodoItem({
@@ -12,6 +13,11 @@ class TodoItem extends StatelessWidget {
     required this.onToDoChange,
     required this.onDeleteItem,
   });
+
+  String _formatDate(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('h:mm a - d MMM');
+    return formatter.format(dateTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +36,24 @@ class TodoItem extends StatelessWidget {
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
           color: tdBlue,
         ),
-        title: Text(
-          todo.todoText!,
-          style: TextStyle(
-              fontSize: 16,
-              color: tdBlack,
-              decoration: todo.isDone ? TextDecoration.lineThrough : null),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              todo.todoText,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: tdBlack,
+                  decoration: todo.isDone ? TextDecoration.lineThrough : null),
+            ),
+            Text(
+              _formatDate(todo.createdAt),
+              style: const TextStyle(
+                fontSize: 12,
+                color: tdGrey,
+              ),
+            ),
+          ],
         ),
         trailing: Container(
           padding: const EdgeInsets.all(0),
@@ -51,7 +69,7 @@ class TodoItem extends StatelessWidget {
             iconSize: 18,
             icon: const Icon(Icons.delete),
             onPressed: () {
-              onDeleteItem(todo.id);
+              onDeleteItem(todo.todoId);
             },
           ),
         ),

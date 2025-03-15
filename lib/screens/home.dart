@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:listify/constants/colors.dart';
+import 'package:listify/controller/todo_controller.dart';
 import 'package:listify/model/todo.dart';
 import 'package:listify/widgets/search_box.dart';
 import 'package:listify/widgets/todo_item.dart';
@@ -12,103 +13,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final todoList = ToDo.todoList();
-  final _todoController = TextEditingController();
-  List<ToDo> _foundToDo = [];
-  String tex = '';
+  final TodoController _todoController = TodoController();
+  final TextEditingController _textController = TextEditingController();
 
   @override
-  void initState() {
-    _foundToDo = todoList;
-    super.initState();
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: tdBGColor,
-      title: SizedBox(
-        height: 60,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset('assets/imgs/app_icon.png'),
-        ),
-      ),
-    );
-  }
-
-  void _handleToDoChange(ToDo todo) {
-    setState(() {
-      todo.isDone = !todo.isDone;
-    });
-  }
-
-  void _handleOnDeleteItem(String id) {
-    setState(() {
-      todoList.removeWhere((item) => item.id == id);
-      _foundToDo.removeWhere((item) => item.id == id);
-    });
-  }
-
-  void _addTodoItem(String todo) {
-    setState(() {
-      if (todo.isNotEmpty) {
-        todoList.add(
-          ToDo(
-            id: DateTime.now().microsecondsSinceEpoch.toString(),
-            todoText: todo,
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-            content: Text("Enter text to add item"),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    });
-    _todoController.clear();
-  }
-
-  void _runFilter(String enteredKeyword) {
-    List<ToDo> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = todoList;
-    } else {
-      results = todoList
-          .where((item) => item.todoText!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-
-    setState(() {
-      _foundToDo = results;
-    });
-  }
-
-  String _handleAddTodo() {
-    if (todoList.isNotEmpty) {
-      setState(() {
-        tex = "All ToDos";
-      });
-      return tex;
-    } else {
-      setState(() {
-        tex = "Add a ToDo";
-      });
-      return tex;
-    }
+  void dispose() {
+    _todoController.dispose();
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: tdBGColor,
-      appBar: _buildAppBar(),
+      appBar: TodoController.buildAppBar(),
       body: Stack(
         children: [
           Container(
@@ -118,31 +37,36 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
-                searchBox((value) => _runFilter(value)),
+                searchBox((value) => _todoController.searchTodo(value)),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 50, bottom: 20),
-                        child: Text(
-                          _handleAddTodo(),
-                          style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      for (ToDo todoo in _foundToDo.reversed)
-                        TodoItem(
-                          todo: todoo,
-                          onToDoChange: _handleToDoChange,
-                          onDeleteItem: _handleOnDeleteItem,
-                        ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                    ],
-                  ),
+                  child: ValueListenableBuilder<List<Todo>>(
+                      valueListenable: _todoController.todosNotifier,
+                      builder: (context, todos, _) {
+                        return ListView(
+                          children: [
+                            Container(
+                              margin:
+                                  const EdgeInsets.only(top: 50, bottom: 20),
+                              child: Text(
+                                _todoController.getTitle(),
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            for (Todo todo in todos.reversed)
+                              TodoItem(
+                                todo: todo,
+                                onToDoChange: _todoController.toggleTodoStatus,
+                                onDeleteItem: _todoController.deleteTodo,
+                              ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                          ],
+                        );
+                      }),
                 ),
               ],
             ),
@@ -175,7 +99,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: _todoController,
+                      controller: _textController,
                       decoration: const InputDecoration(
                         hintText: 'Add new todo item',
                         border: InputBorder.none,
@@ -189,7 +113,10 @@ class _HomeState extends State<Home> {
                     right: 15,
                   ),
                   child: ElevatedButton(
-                    onPressed: () => _addTodoItem(_todoController.text),
+                    onPressed: () {
+                      _todoController.addTodo(_textController.text);
+                      _textController.clear();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: tdBlue,
                       foregroundColor: Colors.white,
