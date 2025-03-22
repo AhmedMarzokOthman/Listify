@@ -1,0 +1,41 @@
+name: listify
+description: "Mobile To-Do List App with Flutter"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/imgs/
+    - assets/screenshots/
+
+  fonts:
+    - family: Alexandria
+      fonts:
+        - asset: assets/fonts/alexandria/Alexandria-VariableFont_wght.ttf
+
+    - family: Kalam
+      fonts:
+        - asset: assets/fonts/kalam/Kalam-Light.ttf
+
+    - family: Archivo
+      fonts:
+        - asset: assets/fonts/archivo/Archivo-VariableFont_wdth,wght.ttf
+
+    - family: Waltograph
+      fonts:
+        - asset: assets/fonts/waltograph/waltograph.regular.ttf
