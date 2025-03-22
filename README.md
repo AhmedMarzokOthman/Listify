@@ -87,7 +87,7 @@ flutter run
 1. Tap the "+" button at the bottom of the home screen
 2. Enter the task title and description
 3. Select a priority level
-4. Tap "Save" to add the task
+4. Tap "Add Task" to add the task
 
 ### Completing a task
 
@@ -95,7 +95,7 @@ flutter run
 
 ### Editing a task
 
-- Long press on a task to open the edit menu
+- Swipe start to end to edit task
 
 ## Technologies
 
