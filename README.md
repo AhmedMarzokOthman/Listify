@@ -59,13 +59,13 @@
 1. Clone this repository
 
 ```bash
-git clone https://github.com/yourusername/taskmaster.git
+git clone https://github.com/AhmedMarzokOthman/Listify_.git
 ```
 
 2. Navigate to the project folder
 
 ```bash
-cd taskmaster
+cd Listify_
 ```
 
 3. Install dependencies
