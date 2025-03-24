@@ -30,8 +30,6 @@
 
 💾 **Local Storage**: Your tasks are saved locally and persist between sessions
 
-🌙 **Dark Mode Support**: Switch between light and dark themes
-
 ## Screenshots
 
 <p align="center">
@@ -65,7 +63,7 @@ git clone https://github.com/AhmedMarzokOthman/Listify_.git
 2. Navigate to the project folder
 
 ```bash
-cd Listify_
+cd Listify
 ```
 
 3. Install dependencies
