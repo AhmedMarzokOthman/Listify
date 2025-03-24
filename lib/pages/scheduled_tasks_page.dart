@@ -71,16 +71,16 @@ class _ScheduledTasksPageState extends State<ScheduledTasksPage> {
           Expanded(
             child: FutureBuilder<List<Todo>>(
               future: _todosFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
+              builder: (context, todoss) {
+                if (todoss.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                } else if (todoss.hasError) {
+                  return Center(child: Text('Error: ${todoss.error}'));
+                } else if (!todoss.hasData || todoss.data!.isEmpty) {
                   return const Center(child: Text('No scheduled tasks'));
                 } else {
                   // Filter todos based on search and scheduled status
-                  final todos = snapshot.data!;
+                  final todos = todoss.data!;
                   final filteredTodos =
                       _searchQuery.isEmpty
                           ? todos
