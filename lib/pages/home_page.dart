@@ -28,8 +28,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadTodos() {
-    _todosFuture = TodoServices.getTodos();
-    setState(() {});
+    setState(() {
+      _todosFuture = TodoServices.getTodos();
+    });
   }
 
   void _handleSearch(String query) {

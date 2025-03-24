@@ -117,7 +117,7 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text('Cancel', style: TextStyle(color: tdBlue)),
         ),
         ElevatedButton(
           onPressed: _submitForm,

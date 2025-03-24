@@ -24,7 +24,6 @@ class TodoServices {
   }
 
   static Future<List<Todo>> getTodos() async {
-    print("encodedTodos");
     final prefs = await SharedPreferences.getInstance();
     final encodedTodos = prefs.getStringList(_todosKey) ?? [];
     return encodedTodos
